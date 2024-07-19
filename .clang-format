@@ -1,0 +1,14 @@
+BasedOnStyle: Microsoft 
+UseTab: Always
+TabWidth: 4
+BreakBeforeBraces: Allman
+SpaceBeforeParens: Never
+SpacesBeforeTrailingComments: 2
+PointerAlignment: Left
+IndentCaseLabels: true
+AllowShortCaseLabelsOnASingleLine: true
+ColumnLimit: 120
+SortIncludes: false
+AlignTrailingComments: true
+AlignConsecutiveAssignments: Consecutive 
+AccessModifierOffset: -4
