@@ -50,6 +50,7 @@ void ASPPlayerController::Client_OnDeath_Implementation()
 		DeathWidget->AddToViewport(99);
 		DeathWidget->GetRestartButton()->OnPressed.AddDynamic(this, &ASPPlayerController::Restart);
 		SetShowMouseCursor(true);
+		GetPlayerState<ASPPlayerState>()->IsMeDead = true;
 		SetInputMode(FInputModeUIOnly());
 		
 		//GetPlayerState<ASPPlayerState>()->AddDead();
@@ -105,6 +106,6 @@ void ASPPlayerController::Server_RestartPlayer_Implementation()
 			Possess(mCharacter);
 		}
 
-		//GetPlayerState<ASPPlayerState>()->IsMeDead = false;
+		GetPlayerState<ASPPlayerState>()->IsMeDead = false;
 	}
 }
