@@ -59,10 +59,6 @@ protected:
 	UFUNCTION()
 	void TakeRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin,
 						  FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser);
-						  
-//	UFUNCTION()
-//	void TakeAnyDamage(AActor* DamagedActor, float Damage, const  UDamageType* DamageType,
-//	 AController* InstigatedBy, AActor* DamageCauser );
 
 	UFUNCTION()
 	void OnRep_CurrentAmountGrenades();
@@ -75,6 +71,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* GrenadeLaunchAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* Weapon;
 
 public:
 	

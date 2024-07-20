@@ -35,7 +35,13 @@ ASPMainCharacter::ASPMainCharacter()
 		GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this,
 																  &ASPMainCharacter::OnBeginOverlapCapsule);
 	}
-	//OnTakeAnyDamage.AddDynamic(this, &ASPMainCharacter::TakeAnyDamage);
+	Weapon = CreateDefaultSubobject<UStaticMeshComponent>("Weapon");
+	if(Weapon)
+	{
+		Weapon ->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, "AkWeapon");
+	}
+	
+	
 	OnTakeRadialDamage.AddDynamic(this, &ASPMainCharacter::TakeRadialDamage);
 }
 
@@ -98,8 +104,8 @@ void ASPMainCharacter::Server_StartRifleFire_Implementation()
 	if(CurrentRifleAmmo > 0)
 	{
 		//Create LineTrace for Shooting
-		FVector Start = GetActorLocation();
-		FVector ForwardVector = GetActorForwardVector();
+		FVector Start = Weapon->GetSocketLocation("Fire");
+		FVector ForwardVector = Weapon->GetForwardVector();
 		FVector End = Start + (ForwardVector * 1000.0f); 
 
 		FHitResult HitResult;
@@ -214,18 +220,6 @@ void ASPMainCharacter::OnBeginOverlapCapsule(UPrimitiveComponent* OverlappedComp
 		}
 	}
 }
-
-/*void ASPMainCharacter::TakeAnyDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
-	AController* InstigatedBy, AActor* DamageCauser)
-{
-	if(HasAuthority() && !GetHealthComponent()->GetIsDead())
-	{
-		if(OnDamageSignature.IsBound())
-		{
-			OnDamageSignature.Broadcast(Damage);
-		}
-	}
-}*/
 
 void ASPMainCharacter::TakeRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
 												 FVector Origin, FHitResult HitInfo, AController* InstigatedBy,
